@@ -6,6 +6,7 @@ import "./Ownable.sol";
 contract ItemManager is Ownable {
   struct S_Item {
     Item _item;
+    uint _itemPrice;
     ItemManager.SupplyChainSteps _step;
     string _identifier;
   }
@@ -19,6 +20,7 @@ contract ItemManager is Ownable {
   function createItem(string memory _identifier, uint _priceInWei) public onlyOwner {
     Item item = new Item(this, _priceInWei, index);
     items[index]._item = item;
+    items[index]._itemPrice = _priceInWei;
     items[index]._step = SupplyChainSteps.Created;
     items[index]._identifier = _identifier;
     emit SupplyChainStep(index, uint(items[index]._step), address(item));
